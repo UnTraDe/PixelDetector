@@ -1,0 +1,29 @@
+ERC report (29-Nov-16 10:30:29, Encoding UTF8 )
+
+***** Sheet /
+ErrType(8): Global label not connected to any other global label
+    @ (179.07 mm,85.09 mm): Global label UART_TX is not connected to any other global label.
+ErrType(2): Pin not connected (and no connect symbol found on this pin)
+    @ (170.18 mm,93.98 mm): Pin 22 (Output) of component U2 is unconnected.
+ErrType(3): Pin connected to some others pins but no pin to drive it
+    @ (200.66 mm,96.52 mm): Pin 1 (Power input) of component #PWR08 is not driven (Net 5).
+ErrType(3): Pin connected to some others pins but no pin to drive it
+    @ (170.18 mm,111.76 mm): Pin 15 (Power input) of component U2 is not driven (Net 6).
+ErrType(8): Global label not connected to any other global label
+    @ (179.07 mm,88.90 mm): Global label UART_RX is not connected to any other global label.
+ErrType(2): Pin not connected (and no connect symbol found on this pin)
+    @ (170.18 mm,96.52 mm): Pin 21 (Input) of component U2 is unconnected.
+ErrType(8): Global label not connected to any other global label
+    @ (240.03 mm,135.89 mm): Global label Sensor_5v is not connected to any other global label.
+ErrType(3): Pin connected to some others pins but no pin to drive it
+    @ (199.39 mm,125.73 mm): Pin 1 (Power input) of component #PWR011 is not driven (Net 9).
+ErrType(8): Global label not connected to any other global label
+    @ (200.66 mm,82.55 mm): Global label Output is not connected to any other global label.
+ErrType(2): Pin not connected (and no connect symbol found on this pin)
+    @ (170.18 mm,99.06 mm): Pin 20 (Bidirectional) of component U2 is unconnected.
+ErrType(8): Global label not connected to any other global label
+    @ (200.66 mm,86.36 mm): Global label Trigger is not connected to any other global label.
+ErrType(2): Pin not connected (and no connect symbol found on this pin)
+    @ (170.18 mm,101.60 mm): Pin 19 (Bidirectional) of component U2 is unconnected.
+
+ ** ERC messages: 12  Errors 0  Warnings 12

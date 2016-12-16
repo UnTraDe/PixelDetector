@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1031158701433",
+    "firebase_url": "https://pixeldetector.firebaseio.com",
+    "project_id": "pixeldetector",
+    "storage_bucket": "pixeldetector.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031158701433:android:52da373a258f8f29",
+        "android_client_info": {
+          "package_name": "com.untrade.pixeldetector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031158701433-aupv1bkd6b9lnub9uqd7utlv16fo8mc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-HX5EGN598X3iC8dhT7jdYO6s3n3ff4Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
