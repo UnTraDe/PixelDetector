@@ -3,8 +3,8 @@
 
 #define _DEBUG
 
-String _request = String("POST /fcm/send HTTP/1.1\r\nHOST: fcm.googleapis.com\r\nContent-Type: application/json\r\nAuthorization: key=AAAA8BXZHXk:APA91bHNEW4qP0_TRmoirmFRt9TR80LQyRNBhKiCqAhUyTDAZalx9jwZgn6fHdF5mFRqmaIquZ1kD7fIrohLEb138To4EYlME4irhbrf-RTkQzFWny4Xc0tqBw5jFrSpMnt1rUqZJ29hkT_I7f2vTwxxMLTibmiqTQ\r\nContent-Length: 126\r\n\r\n") +
-"{\"notification\":{\"title\": \"PIXEL DETECTED!\",\"body\":\"A Pixel had detected! CHECK NOW!\",\"sound\":\"default\"},\"to\":\"/topics/pixel\"}";
+String _request = String("POST /fcm/send HTTP/1.1\r\nHOST: fcm.googleapis.com\r\nContent-Type: application/json\r\nAuthorization: key=AAAA8BXZHXk:APA91bHNEW4qP0_TRmoirmFRt9TR80LQyRNBhKiCqAhUyTDAZalx9jwZgn6fHdF5mFRqmaIquZ1kD7fIrohLEb138To4EYlME4irhbrf-RTkQzFWny4Xc0tqBw5jFrSpMnt1rUqZJ29hkT_I7f2vTwxxMLTibmiqTQ\r\nContent-Length: 131\r\n\r\n") +
+"{\"notification\":{\"title\": \"PIXEL DETECTED!\",\"body\":\"A Pixel has been detected! CHECK NOW!\",\"sound\":\"default\"},\"to\":\"/topics/pixel\"}";
 
 #define COOLOFF_PERIOD 5000
 
