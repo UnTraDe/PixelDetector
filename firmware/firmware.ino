@@ -51,6 +51,19 @@ void setup()
 
 void loop()
 {
+	if(CheckAndVerify())
+	{
+		Alert();
+		ESP.deepSleep(SLEEP_DETECT * 1000000, WAKE_RF_DEFAULT);
+	}
+	else
+	{
+		ESP.deepSleep(SLEEP_NO_DETECT * 1000000, WAKE_RF_DEFAULT);
+	}
+}
+
+bool CheckAndVerify()
+{
 	int distance = 99999;
 	int count = 0;
 
@@ -83,15 +96,14 @@ void loop()
 #ifdef _DEBUG
 		Serial.println("detected!");
 #endif
-		Alert();
-		ESP.deepSleep(SLEEP_DETECT * 1000000, WAKE_RF_DEFAULT);
+		return true;
 	}
 	else
 	{
 #ifdef _DEBUG
 		Serial.println("not detected");
 #endif
-		ESP.deepSleep(SLEEP_NO_DETECT * 1000000, WAKE_RF_DEFAULT);
+		return false;
 	}
 }
 
