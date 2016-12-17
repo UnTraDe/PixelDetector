@@ -3,14 +3,21 @@
 
 #define _DEBUG
 
+#define DISTANCE_THRESHHOLD 20
+#define INTERVAL_THRESHHOLD 1000
+#define INTERVAL_COUNT_THRESHHOLD 5
+
+#define SLEEP_NO_DETECT 2
+#define SLEEP_DETECT 5
+
+#define TRIGGER_PIN 4
+#define ECHO_PIN 5
+
+const char _SSID[] = "Abramovich";
+const char _PASSWORD[] = "happylama";
+
 String _request = String("POST /fcm/send HTTP/1.1\r\nHOST: fcm.googleapis.com\r\nContent-Type: application/json\r\nAuthorization: key=AAAA8BXZHXk:APA91bHNEW4qP0_TRmoirmFRt9TR80LQyRNBhKiCqAhUyTDAZalx9jwZgn6fHdF5mFRqmaIquZ1kD7fIrohLEb138To4EYlME4irhbrf-RTkQzFWny4Xc0tqBw5jFrSpMnt1rUqZJ29hkT_I7f2vTwxxMLTibmiqTQ\r\nContent-Length: 131\r\n\r\n") +
 "{\"notification\":{\"title\": \"PIXEL DETECTED!\",\"body\":\"A Pixel has been detected! CHECK NOW!\",\"sound\":\"default\"},\"to\":\"/topics/pixel\"}";
-
-#define COOLOFF_PERIOD 5000
-
-unsigned long _now;
-unsigned long _last;
-unsigned long _cooloff_timer = 0;
 
 void setup()
 {
@@ -19,23 +26,23 @@ void setup()
 	Serial.println();
 #endif
 	
-	pinMode(4, OUTPUT);
-	pinMode(5, INPUT);
+	pinMode(TRIGGER_PIN, OUTPUT);
+	pinMode(ECHO_PIN, INPUT);
 
-    WiFi.begin("Abramovich", "happylama");
+	WiFi.mode(WIFI_STA);
+	WiFi.begin(_SSID, _PASSWORD);
 
 #ifdef _DEBUG
     Serial.print("Connecting");
 #endif
 
-    while (WiFi.status() != WL_CONNECTED)
+	while (WiFi.status() != WL_CONNECTED)
     {
         delay(500);
-
 #ifdef _DEBUG
         Serial.print(".");
 #endif
-    }
+	}
 
 #ifdef _DEBUG
 	Serial.println("\nConnected to WiFi!");
@@ -44,26 +51,59 @@ void setup()
 
 void loop()
 {
-	digitalWrite(4, LOW);
-	delayMicroseconds(2);
-	digitalWrite(4, HIGH);
-	delayMicroseconds(10);
-	digitalWrite(4, LOW);
-	int duration = pulseIn(5, HIGH);
-	int distance = duration/58;
+	int distance = 99999;
+	int count = 0;
 
-	_now = millis();
-	unsigned long dt = _now - _last;
-	_last = _now;
-	_cooloff_timer += dt;	
+#ifdef _DEBUG
+	Serial.println("checking...");
+#endif
 
-	if(distance < 20 && _cooloff_timer >= COOLOFF_PERIOD)
+	while((distance = GetSample()) <= DISTANCE_THRESHHOLD)
 	{
-		Alert();
-		_cooloff_timer = 0;
+#ifdef _DEBUG
+		if(count == 0)
+			Serial.print("Verifying");
+		
+		Serial.print(".");
+#endif
+
+		count++;
+		delay(INTERVAL_THRESHHOLD);
+		
+		if(count == INTERVAL_COUNT_THRESHHOLD)
+			break;
 	}
-	
-	delay(100);
+
+#ifdef _DEBUG
+	Serial.println();
+#endif
+
+	if(count == INTERVAL_COUNT_THRESHHOLD)
+	{
+#ifdef _DEBUG
+		Serial.println("detected!");
+#endif
+		Alert();
+		ESP.deepSleep(SLEEP_DETECT * 1000000, WAKE_RF_DEFAULT);
+	}
+	else
+	{
+#ifdef _DEBUG
+		Serial.println("not detected");
+#endif
+		ESP.deepSleep(SLEEP_NO_DETECT * 1000000, WAKE_RF_DEFAULT);
+	}
+}
+
+int GetSample()
+{
+	digitalWrite(TRIGGER_PIN, LOW);
+	delayMicroseconds(2);
+	digitalWrite(TRIGGER_PIN, HIGH);
+	delayMicroseconds(10);
+	digitalWrite(TRIGGER_PIN, LOW);
+
+	return pulseIn(ECHO_PIN, HIGH) / 58;
 }
 
 void Alert()
@@ -83,4 +123,8 @@ void Alert()
 #endif
 
 	_client.print(_request);
+
+#ifdef _DEBUG
+	Serial.println("sent");
+#endif
 }
